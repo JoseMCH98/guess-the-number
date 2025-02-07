@@ -1,26 +1,37 @@
 import random
 
-def computer_guess():
-    print("Piensa en un número entre 1 y 100. ¡La computadora intentará adivinarlo!")
+def computer_guess(x):
     low = 1
-    high = 100
+    high = x
+    feedback = ""
     attempts = 0
     
-    while True:
-        guess = random.randint(low, high)  # La computadora hace una suposición
-        attempts += 1
-        print(f"\n¿Es {guess} tu número?")
-        
-        user_input = input("Responde con 'mayor', 'menor' o 'correcto': ").strip().lower()
-        
-        if user_input == "correcto":
-            print(f"¡La computadora adivinó tu número {guess} en {attempts} intentos! 🎉")
-            break
-        elif user_input == "mayor":
-            low = guess + 1
-        elif user_input == "menor":
-            high = guess - 1
-        else:
-            print("Entrada no válida. Escribe 'mayor', 'menor' o 'correcto'.")
+    while feedback != "c":
+        try:
+            if low != high:
+                guess = random.randint(low, high)
+                attempts += 1 
+            else:
+                guess = low
+            feedback = input(f"Is {guess} too high (H), too low (L), or correct (C)? ").lower()
+            
+            if feedback not in ["h", "l", "c"]:
+                print("Please provide valid input (H, L, C).")
+                continue
+            
+            if feedback == "h":
+                if guess == low:
+                    print(f"Your number has been guessed! :) {guess}")
+                    continue
+                high = guess - 1
+            elif feedback == "l":
+                if guess == high:
+                    print(f"Your number has been guessed! :) {guess}")
+                    continue
+                low = guess + 1  # Cambiado a guess + 1
+        except ValueError:
+            print("Please provide valid input.")
+    
+    print(f"Congratulations! The computer has guessed your secret number {guess} in {attempts} attempts!")
 
 computer_guess()
