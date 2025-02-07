@@ -28,7 +28,7 @@ def computer_guess(x):
                 if guess == high:
                     print(f"Your number has been guessed! :) {guess}")
                     continue
-                low = guess + 1  # Cambiado a guess + 1
+                low = guess + 1 
         except ValueError:
             print("Please provide valid input.")
     
